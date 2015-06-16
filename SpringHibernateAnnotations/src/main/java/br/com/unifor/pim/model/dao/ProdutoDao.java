@@ -19,8 +19,7 @@ public class ProdutoDao {
 
 	@Autowired
 	private SessionFactory sessionFactory;
-	
-	
+
 	@SuppressWarnings("unchecked")
 	public List<Produto> listarTodos() {
 		Session session = sessionFactory.openSession();
@@ -31,16 +30,18 @@ public class ProdutoDao {
 
 	public Produto buscarPorId(int id) {
 		Session session = sessionFactory.openSession();
-		Produto produto = (Produto) session.createQuery("FROM Produto WHERE id = :id")
-				   .setParameter("id", id)
-				   .uniqueResult();
-	
-		//pq preciso fazer esta linha pra inicializar
-		System.out.println("......qtd restricoes : "+produto.getRestricoes().size());
-//		for (Restricao restricao : produto.getRestricoes()) {
-//			System.out.println("count produto por restricao : "+ restricao.getProdutos().size());
-//		}
-		
+		Produto produto = (Produto) session
+				.createQuery("FROM Produto WHERE id = :id")
+				.setParameter("id", id).uniqueResult();
+
+		// pq preciso fazer esta linha pra inicializar
+		System.out.println("......qtd restricoes : "
+				+ produto.getRestricoes().size());
+		// for (Restricao restricao : produto.getRestricoes()) {
+		// System.out.println("count produto por restricao : "+
+		// restricao.getProdutos().size());
+		// }
+
 		session.close();
 		return produto;
 	}
@@ -54,7 +55,7 @@ public class ProdutoDao {
 		session.close();
 		return produto;
 	}
-	
+
 	public Produto atualizar(Produto produto) {
 		Session session = sessionFactory.openSession();
 		Transaction tx = session.beginTransaction();
@@ -68,20 +69,39 @@ public class ProdutoDao {
 	public void remover(int id) {
 		Session session = sessionFactory.openSession();
 		session.createQuery("DELETE FROM Produto WHERE id = :id")
-			   .setParameter("id", id)
-			   .executeUpdate();
+				.setParameter("id", id).executeUpdate();
 		session.close();
 	}
-	
+
 	@SuppressWarnings("unchecked")
 	public List<Produto> listarPorFornecedor(Fornecedor fornecedor) {
 		Session session = sessionFactory.openSession();
-		List<Produto> produtoList = session.createQuery("FROM Produto WHERE fornecedor_id = :fornecedor_id")
-				.setParameter("fornecedor_id", fornecedor.getId())
-				.list();		
+		List<Produto> produtoList = session
+				.createQuery(
+						"FROM Produto WHERE fornecedor_id = :fornecedor_id")
+				.setParameter("fornecedor_id", fornecedor.getId()).list();
 		session.close();
-		
+
 		return produtoList;
+	}
+
+	public Produto buscarPorCodigoBarra(Produto produto) {
+		Session session = sessionFactory.openSession();
+		Produto prod = (Produto) session
+				.createQuery("FROM Produto WHERE codigoBarra = :codigoBarra")
+				.setParameter("codigoBarra", produto.getCodigoBarra())
+				.uniqueResult();
+
+		// pq preciso fazer esta linha pra inicializar
+				System.out.println("......qtd restricoes : "
+						+ prod.getRestricoes().size());
+		
+		System.out.println("descricao do produto consultado: "
+				+ prod.getDescricao());
+
+		session.close();
+		return prod;
+
 	}
 
 }

@@ -42,6 +42,9 @@ public class Produto {
 
 	@ManyToOne
 	private Fornecedor fornecedor;
+	
+	@Transient
+	private Boolean liberado;
 
 	@XmlAttribute
 	public Integer getId() {
@@ -150,6 +153,14 @@ public class Produto {
 		}
 
 		return restricaoLista;
+	}
+
+	public Boolean getLiberado() {
+		return liberado;
+	}
+
+	public void setLiberado(Boolean liberado) {
+		this.liberado = liberado;
 	}
 
 	// public Restricao getRestricao() {

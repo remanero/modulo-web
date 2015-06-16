@@ -10,15 +10,15 @@ import br.com.unifor.pim.model.entity.Usuario;
 
 @Service
 public class UsuarioService {
-	
+
 	@Autowired
 	private UsuarioDao usuarioDao;
 
 	public Usuario salvar(Usuario usuario) {
-		if(usuario.getId() == null){
+		if (usuario.getId() == null) {
 			System.out.println("salvando usuario....");
 			return usuarioDao.salvar(usuario);
-		}else{
+		} else {
 			System.out.println("ATUALIAZANDO usuario....");
 			return usuarioDao.atualizar(usuario);
 		}
@@ -35,17 +35,25 @@ public class UsuarioService {
 	public void remover(int id) {
 		usuarioDao.remover(id);
 	}
-	
+
 	public Usuario existeUsuario(Usuario usuario) {
 		return usuarioDao.existeUsuario(usuario);
 	}
 
 	public Boolean buscarLogin(String username, String password) {
-		return usuarioDao.buscarLogin(username,password);
+		return usuarioDao.buscarLogin(username, password);
 	}
 
 	public Usuario criarUsuarioConsumidor(Usuario usuario) {
 		return usuarioDao.salvar(usuario);
+	}
+
+	public Boolean buscarLoginPorEmail(String email, String password) {
+		return usuarioDao.buscarLoginPorEmail(email, password);
+	}
+
+	public Usuario buscarUsuarioLogin(String username, String password) {
+		return usuarioDao.buscarUsuarioLogin(username, password);
 	}
 
 }

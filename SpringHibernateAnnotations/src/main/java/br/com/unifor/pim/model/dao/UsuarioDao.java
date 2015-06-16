@@ -86,4 +86,35 @@ public class UsuarioDao {
 		else
 			return false;
 	}
+
+	public Boolean buscarLoginPorEmail(String email, String password) {
+		Session session = sessionFactory.openSession();
+		Usuario user = (Usuario) session
+				.createQuery("FROM Usuario WHERE email = :email AND senha = :senha")
+				.setParameter("email", email)
+				.setParameter("senha", password)
+				.uniqueResult();
+		session.close();
+		
+		if(user != null) {
+			
+			System.out.println("nome login : " + user.getNome());
+			
+			return true;
+		}
+		else
+			return false;
+	}
+
+	public Usuario buscarUsuarioLogin(String username, String password) {
+		Session session = sessionFactory.openSession();
+		Usuario user = (Usuario) session
+				.createQuery("FROM Usuario WHERE nome = :nome AND senha = :senha")
+				.setParameter("nome", username)
+				.setParameter("senha", password)
+				.uniqueResult();
+		session.close();
+		
+		return user;
+	}
 }

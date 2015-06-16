@@ -45,11 +45,24 @@ public class UsuarioControllerRest {
 		return usuario;
 	}
 
-	@RequestMapping(value = "/doLogin", method = RequestMethod.POST)
-	public @ResponseBody Boolean doLogin(@RequestParam String username,
+	@RequestMapping(value = "/doLoginOld", method = RequestMethod.POST, headers={"Content-type=application/json"})
+	public @ResponseBody Boolean doLoginOld(@RequestParam String username,
 			@RequestParam String password) {
 		return usuarioService.buscarLogin(username, password);
-
+	}
+	
+	@RequestMapping(value = "/doLogin", method = RequestMethod.POST, headers={"Content-type=application/json"})
+	public @ResponseBody
+	Usuario doLogin(@RequestParam String username,
+			@RequestParam String password) {
+		return usuarioService.buscarUsuarioLogin(username, password);
+	}
+	
+	@RequestMapping(value = "/doLoginEmail", method = RequestMethod.POST, headers={"Content-type=application/json"})
+	public @ResponseBody Usuario doLoginEmail(@RequestBody Usuario usuario) {
+		//return usuarioService.buscarLoginPorEmail(usuario.getNome(), usuario.getSenha());
+		
+		return usuarioService.buscarUsuarioLogin(usuario.getNome(), usuario.getSenha());
 	}
 	
 	

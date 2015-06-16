@@ -26,7 +26,7 @@ public class FornecedorController {
 		ModelAndView mav = new ModelAndView();
 		mav.setViewName("fornecedor/formFornecedor");
 		mav.addObject("fornecedor", new Fornecedor());
-		mav.addObject("listaProduto",produtoService.listarTodos());
+		//mav.addObject("listaProduto",produtoService.listarTodos());
 		return mav;
 	}
 

@@ -64,4 +64,14 @@ public class ProdutoService {
 		return produto;
 
 	}
+
+	public Produto buscarPorCodigoBarra(Produto produto) {
+		
+		Produto prod = produtoDao.buscarPorCodigoBarra(produto);
+		System.out.println("count restricoes: "+prod.getRestricoes().size());
+		
+		return prod;
+		
+		//return produtoDao.buscarPorCodigoBarra(produto);
+	}
 }
